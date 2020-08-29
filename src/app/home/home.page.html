@@ -1,14 +1,16 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Blank
+      Lista Productos
     </ion-title>
+    <ion-avatar slot="end">
+      <ion-badge color="danger" mode="ios">{{cantidad}}</ion-badge>
+      <img src="../../assets/cart.png" />
+    </ion-avatar>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-
-
   <ion-list>
     <ion-item *ngFor="let item of productos" [routerLink]="['/home',item.id]">
       <ion-avatar slot="start">
