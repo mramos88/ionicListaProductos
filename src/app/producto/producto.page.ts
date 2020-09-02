@@ -15,14 +15,15 @@ export class ProductoPage implements OnInit {
     , private prodSrv: ProductoService) { }
 
   ngOnInit() {    
- 
     this.activeteRoute.paramMap.subscribe(
       paramMap => {
         this.producto =
           this.prodSrv.obtenerPorId(paramMap.get("id"));
-      
     });
- 
+  }
+
+  public agregarCarrito(): void{
+    this.prodSrv.carrito.push(this.producto);
   }
 
 }

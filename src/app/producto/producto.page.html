@@ -10,10 +10,32 @@
 </ion-header>
 
 <ion-content>
-  {{producto.precio}}
+<ion-item>
+  <ion-text color="dark">
+    <h2>{{producto.nombre}}</h2>
+  </ion-text>
+</ion-item>
+<ion-item>
+  <ion-img class="tamañoImg" [src]="producto.imagen"></ion-img>
+</ion-item>
+<ion-item >
+  <ion-text color="dark">
+    <h1 class="colorFondo">${{producto.precio}}</h1>
+  </ion-text>
+</ion-item>
+<ion-item>
+  <ion-label >Cantidad:</ion-label>
+  <ion-input class="colorFondo"  type="number" placeholder="({{producto.cantidad}} disponibles)"></ion-input>
+</ion-item>
+<ion-item >
+  <ion-icon color="success"  name="card"></ion-icon>
+  <ion-text color="success">
+  <h6>Paga en 3 cuotas sin interes</h6>
+</ion-text>
+</ion-item>
 
-
-  <ion-button (click)="onClick()" expand="block"  shape="round">
-    agregar Al carro de compras
+  <ion-button (click)="agregarCarrito()" expand="block"  [disabled]="producto.cantidad==0" >
+    <ion-icon slot="start" name="cart"></ion-icon>
+    Agregar al carrito
   </ion-button>
 </ion-content>
