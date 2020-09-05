@@ -14,13 +14,12 @@ export class HomePage {
   private cantidad=0;
   constructor(private prodSrv: ProductoService) {
     /*let prod = new Producto();
-    prod.id = "4";
     prod.cantidad = 3;
     prod.nombre = "led";
     prod.precio = 100;
     this.prodSrv.agregar(prod);*/
     prodSrv.obtenerTodos().subscribe(datos => {
-      this.productos = datos;
+       this.productos=datos
      });
     this.carrito = prodSrv.carrito;
     

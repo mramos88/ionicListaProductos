@@ -15,16 +15,11 @@ export class ProductoService {
     return this.httpClien.get<Producto[]>("http://localhost:3000/productos");
   }
   public obtenerPorId(id: string) {
-  /*  for (let prod of this.productos) {
-      if (prod.id == id) { 
-        return prod;
-      }
-    }*/
-    return null;
+     return this.httpClien.get<Producto>("http://localhost:3000/productos/"+id);
   }
 
   public agregar(prod: Producto) {
-    this.productos.push(prod);
+   // this.productos.push(prod);
   
   }
   public getCarrito() {
