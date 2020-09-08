@@ -1,50 +1,28 @@
 import { Injectable } from '@angular/core';
 import { Producto } from '../model/producto';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductoService {
- private productos:Array<Producto> = [{
-    "id": "1",
-    "nombre": "Celular",
-    "precio": 1500,
-    "cantidad": 10,
-    "imagen": "http://dummyimage.com/102x217.jpg/dddddd/000000" 
-  },
-  {
-    "id": "2",
-    "nombre": "Tablet",
-    "precio": 3000,
-    "cantidad": 3,
-    "imagen": "http://dummyimage.com/131x116.jpg/5fa2dd/ffffff"
-    
-    
-    },
-    {
-      "id": "3",
-      "nombre": "tv",
-      "precio": 5600,
-      "cantidad": 0,
-      "imagen": "http://dummyimage.com/131x116.jpg/5fa2dd/ffffff"
-      
-      
-      }]
-
-  constructor() { }
+ 
+  
+  public carrito: Array<Producto> = [];
+  constructor(private httpClien:HttpClient) { }
 
   public obtenerTodos() {
-    return this.productos;
+    return this.httpClien.get<Producto[]>("http://localhost:3000/productos");
   }
   public obtenerPorId(id: string) {
-    for (let prod of this.productos) {
-      if (prod.id == id) { 
-        return prod;
-      }
-    }
+     return this.httpClien.get<Producto>("http://localhost:3000/productos/"+id);
   }
 
   public agregar(prod: Producto) {
-    this.productos.push(prod);
+   // this.productos.push(prod);
+  
+  }
+  public getCarrito() {
+    return this.carrito;
   }
 }
