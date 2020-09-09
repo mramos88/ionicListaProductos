@@ -12,10 +12,10 @@ export class ProductoService {
   constructor(private httpClien:HttpClient) { }
 
   public obtenerTodos() {
-    return this.httpClien.get<Producto[]>("http://localhost:3000/productos");
+    return this.httpClien.get<Producto[]>("http://192.168.0.107:3000/productos");
   }
   public obtenerPorId(id: string) {
-     return this.httpClien.get<Producto>("http://localhost:3000/productos/"+id);
+     return this.httpClien.get<Producto>("http://192.168.0.107:3000/productos/"+id);
   }
 
   public agregar(prod: Producto) {

@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ProductoService } from '../services/producto.service';
 import { Producto } from '../model/producto';
+import { AlertController, LoadingController } from '@ionic/angular';
 
 
 @Component({
@@ -8,20 +9,54 @@ import { Producto } from '../model/producto';
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-export class HomePage {
+export class HomePage implements OnInit{
   private productos;
-  private carrito: Array<Producto>;
-  private cantidad=0;
-  constructor(private prodSrv: ProductoService) {
-    /*let prod = new Producto();
-    prod.cantidad = 3;
-    prod.nombre = "led";
-    prod.precio = 100;
-    this.prodSrv.agregar(prod);*/
-    prodSrv.obtenerTodos().subscribe(datos => {
-       this.productos=datos
-     });
-    this.carrito = prodSrv.carrito;
+  private carrito: Array<Producto>=[];
+  private cantidad = 0;
+  
+  constructor(private prodSrv: ProductoService,
+    private alContrl: AlertController,
+    private lodading: LoadingController) {
+     
+  }
+  
+  public async ngOnInit() {
+    this.carrito = this.prodSrv.carrito;
+    
+      const loading = await this.lodading.create();   
+      loading.present();
+    
+ 
+    
+
+    this.prodSrv.obtenerTodos().subscribe(datos => {
+      
+      this.productos = datos
+      loading.dismiss();
+    });
+    
+   
+    
+  }
+  public async verCarrito(){
+  
+    let total = 0;
+    let cuerpo = "";
+    for (let prod of this.prodSrv.carrito) {
+      cuerpo = cuerpo + prod.nombre + "<br>";
+      total = total + prod.precio;
+    }
+    const cuerpoAleta = {
+      header: "Lista de producto",
+      
+      message: cuerpo+"<br>Precio Total "+total,
+      buttons: ["ok"]
+    };
+    const alerta = await this.alContrl.create(cuerpoAleta);
+
+    await alerta.present();
+
+ 
     
   }
 
